@@ -2,20 +2,26 @@ services:
   nginx:
     build: requirements/nginx/.
     container_name: nginx
+    env_file: 
+      - .env
     depends_on:
       - wordpress
       - mariadb
     ports:
-      - "80:80"
+      - "443:443"
     volumes:
       - ./web:/var/www/html
+    restart: always
   wordpress:
     build: requirements/wordpress/.
     container_name: wordpress
+    env_file:
+      - .env
     depends_on:
       - mariadb
     volumes:
       - ./web:/var/www/html
+    restart: always
   mariadb:
     build: requirements/mariadb/.
     container_name: mariadb
