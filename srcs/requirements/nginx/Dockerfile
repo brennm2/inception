@@ -1,20 +1,18 @@
+
+# - Setting the base image for the nginx
 FROM debian:bullseye
 RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get install -y nginx
 
-
-# -- Install openssl
+# - Setting up the SSL certificate for the nginx
 RUN mkdir -p /etc/nginx/ssl
 RUN apt-get install -y openssl
-RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=PT/L=Porto/O=42/OU=student/CN=bde-souz.42.fr/UID=bde-souz"
+RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/nginx/ssl/nginx.key -x509 -days 365 -out /etc/nginx/ssl/nginx.crt \
+    -subj "/C=PT/ST=Porto/L=Porto/O=42Porto/OU=42Porto/CN=bdesouz.42.fr"
 
-RUN mkdir -p /var/run/nginx
 
-RUN chmod 755 /var/www/html
-RUN chown -R www-data:www-data /var/www/html
-
-COPY conf/default /etc/nginx/sites-available/.
+COPY ./conf/default.conf /etc/nginx/conf.d/ng.conf
 CMD [ "nginx", "-g", "daemon off;" ]
 
 

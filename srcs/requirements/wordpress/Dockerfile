@@ -1,28 +1,23 @@
+# - Setting the base image for the wordpress
 FROM debian:bullseye
-# Update and install prerequisites
 RUN apt-get update
 RUN apt-get -y upgrade 
-#RUN apt-get install -y lsb-release apt-transport-https ca-certificates curl
+RUN apt-get -y install curl
+RUN apt-get -y install php7.4-fpm
+RUN apt-get -y install php-mysqli
 
-# Add the PHP repository to get PHP 8.3 packages
-#RUN curl -sSL https://packages.sury.org/php/README.txt | bash
+# - Making the directory for the wordpress
+RUN mkdir /run/php
 
-# Install PHP 8.3 and PHP-FPM
-#RUN apt-get update && \
-RUN apt-get install -y php7.4-fpm
-RUN apt-get install -y php7.4-mysqli
-RUN apt-get install -y curl
+# - Copying the configuration file and script for the wordpress
+COPY ./conf/www.conf etc/php/7.4/fpm/pool.d/.
+COPY ./tools/script.sh .
 
-# Create the /run/php directory for the socket file
-RUN mkdir -p /run/php
-
-COPY www.conf /etc/php/7.4/fpm/pool.d/.
-COPY script.sh .
-
-
+# - Changing the permission of the script
 RUN chmod +x script.sh
 
-#EXPOSE 9000
+# - Exposing the port for the wordpress
+EXPOSE 9000
 
-# Set the command to start PHP-FPM
+# - Running the script
 CMD ["./script.sh"]
