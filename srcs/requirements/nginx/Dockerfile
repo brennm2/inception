@@ -1,4 +1,3 @@
-
 # - Setting the base image for the nginx
 FROM debian:bullseye
 RUN apt-get update

@@ -3,8 +3,6 @@ services:
     image: nginx
     build: requirements/nginx/.
     container_name: nginx
-    # env_file: 
-    #   - .env
     depends_on:
       - wordpress
       - mariadb
@@ -21,6 +19,9 @@ services:
     container_name: wordpress
     env_file:
       - .env
+    secrets:
+      - database_password
+      - wp_password
     depends_on:
       - mariadb
     volumes:
@@ -32,15 +33,11 @@ services:
     image: mariadb
     build: requirements/mariadb/.
     container_name: mariadb
-    # env_file:
-    #   - ./.env
     volumes:
       - database:/var/lib/mysql
     networks:
       - inception
     restart: always
-    # expose:
-    #   - "3306"
 networks:
   inception:
 
@@ -57,3 +54,8 @@ volumes:
       type: none
       device: /home/bde-souz/data
       o: bind
+secrets:
+  database_password:
+    file: ../secrets/database_password.txt
+  wp_password:
+    file: ../secrets/wp_password.txt
