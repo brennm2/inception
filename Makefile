@@ -6,7 +6,7 @@
 #    By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 17:45:47 by bde-souz          #+#    #+#              #
-#    Updated: 2024/11/11 11:27:29 by bde-souz         ###   ########.fr        #
+#    Updated: 2024/11/11 18:28:58 by bde-souz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ clean: down
 
 clean_all: down
 	@docker volume rm ${VOLUMES}
+	@docker network rm $(docker network ls -q) 2>/dev/null
 	@docker system prune -a
 	@rm -rf /home/bde-souz/data
 
