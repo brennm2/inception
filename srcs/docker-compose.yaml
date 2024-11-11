@@ -49,11 +49,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ../data
+      device: /home/bde-souz/data
       o: bind
   database:
     driver: local
     driver_opts:
       type: none
-      device: ../data
+      device: /home/bde-souz/data
       o: bind

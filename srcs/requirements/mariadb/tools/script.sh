@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#mysql_install_db
-mysql_upgrade
+mysql_install_db
+#mysql_upgrade
 exec mysqld --socket=/run/mysqld/mysqld.sock --user=root --console
 
 

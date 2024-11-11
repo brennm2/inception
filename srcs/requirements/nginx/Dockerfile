@@ -9,7 +9,7 @@ RUN apt-get install -y nginx
 RUN mkdir -p /etc/nginx/ssl
 RUN apt-get install -y openssl
 RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/nginx/ssl/nginx.key -x509 -days 365 -out /etc/nginx/ssl/nginx.crt \
-    -subj "/C=PT/ST=Porto/L=Porto/O=42Porto/OU=42Porto/CN=bdesouz.42.fr"
+    -subj "/C=PT/ST=Porto/L=Porto/O=42Porto/OU=42Porto/CN=bde-souz.42.fr"
 
 
 COPY ./conf/default.conf /etc/nginx/conf.d/ng.conf
