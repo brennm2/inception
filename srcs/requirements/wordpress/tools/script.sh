@@ -34,7 +34,7 @@ else
 
     ./wp-cli.phar user create ${WPRESS_SECOND_USER} \
                               ${WPRESS_SECOND_EMAIL} \
-                              --role=contributor \
+                              --role=subscriber \
                               --user_pass="$(head -n 1 ${WPRESS_SECOND_PASSWORD})" \
                               --allow-root 
 fi
